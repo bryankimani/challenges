@@ -13,6 +13,11 @@ import os
 import mutagen
 
 
+# Declare constants
+STRING_SPACING = "{:<105} {:<100}"
+FILE_EXTENSIONS = (".mp4", ".m4a", ".mp3")
+
+
 def get_media_files():
     """Return mp3, m4a or mp4 in the given Directory."""
     while True:
@@ -28,7 +33,7 @@ def get_media_files():
             # directory path
             for root, dirs, files in os.walk(directory_path.strip()):
                 for filename in files:
-                    if filename.endswith((".mp4", ".m4a", ".mp3")):
+                    if filename.endswith(FILE_EXTENSIONS):
                         directory_media_files.append(os.path.join(root, filename))
                 # Break allows you to go to only access the files in first level
                 # del dirs[:] - Does the same thing
@@ -67,20 +72,20 @@ def display_files_total_duration():
             "entered a valid Directory path"
         )
     else:
-        print("{:<105} {:<100}".format("File Name", "Duration in Seconds"))
+        print(STRING_SPACING.format("File Name", "Duration in Seconds"))
         print(
             "----------------------------------------------------------------------------"
             "------------------------------------------------------"
         )
         for value in files_duration_dict.items():
             key, num = value
-            print("{:<105} {:<100}".format(key, num))
+            print(STRING_SPACING.format(key, num))
             print(
                 "-------------------------------------------------------------------------"
                 "---------------------------------------------------------"
             )
         print(
-            "{:<105} {:<100}".format(
+            STRING_SPACING.format(
                 "Total Duration in Seconds", sum(files_duration_dict.values())
             )
         )
